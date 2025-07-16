@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: cloud-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: my-consumer-api #路由id，自定义即可，但是需要保证唯一,前面的"-"表示的是数组/List的一个元素
+          uri: lb://cloud-consumer #目标URI，路由到微服务的地址，这里可以使用“lb://${spring.application.name}:port来负载均衡访问api微服务”
+          predicates: #断言（判断条件）
+            - Path=/consumer/**
+server:
+  port: 8888
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    hostname: ${spring.application.name}  # 自定义主机名/别名
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator/info
+    health-check-url: http://${eureka.instance.hostname}:${server.port}/actuator/health
+    home-page-url: http://${eureka.instance.hostname}:${server.port}/
+    prefer-ip-address: false  # 必须设为false才能使用主机名
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

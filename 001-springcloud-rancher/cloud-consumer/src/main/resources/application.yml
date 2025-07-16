@@ -1,0 +1,31 @@
+server:
+  port: 8091
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka #1. 注册的eureka server地址，填http://127.0.0.1:8031/eureka也可以
+
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    hostname: ${spring.application.name}  # 自定义主机名/别名
+    status-page-url: http://${eureka.instance.hostname}:${server.port}/actuator/info
+    health-check-url: http://${eureka.instance.hostname}:${server.port}/actuator/health
+    home-page-url: http://${eureka.instance.hostname}:${server.port}/
+    prefer-ip-address: false  # 必须设为false才能使用主机名
+
+spring:
+  application:
+    name: cloud-consumer #2. 注册到Eureka-server上服务的名称，consumer就是通过这个name查找相应服务的
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+info:
+  app:
+    name: @project.name@
+    version: @project.version@
+    description: @project.description@
