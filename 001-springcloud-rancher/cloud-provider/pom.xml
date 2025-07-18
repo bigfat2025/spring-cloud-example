@@ -13,6 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+        <docker.repo>192.168.10.100/bigfat-repo</docker.repo>
     </properties>
     <dependencies>
         <dependency>
@@ -99,6 +100,45 @@
                         <id>repackage</id>
                         <goals>
                             <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <serverId>docker-jenkins</serverId>
+                    <registryUrl>${docker.repo}</registryUrl>
+                    <pushImage>true</pushImage>
+                    <dockerDirectory>${project.basedir}/docker</dockerDirectory>
+                    <imageName>${docker.repo}/${project.artifactId}:${project.version}</imageName>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}/classes</directory>
+                            <include>log4j2.xml</include>
+                        </resource>
+                    </resources>
+                    <buildArgs>
+                        <PROJECT_BUILD_NAME>${project.build.finalName}</PROJECT_BUILD_NAME>
+                    </buildArgs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
                         </goals>
                     </execution>
                 </executions>
