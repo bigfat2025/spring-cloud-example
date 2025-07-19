@@ -21,4 +21,4 @@ EXPOSE 8090
 COPY ./$PROJECT_BUILD_NAME.jar /app/app.jar
 COPY ./application.yml /app/conf/application.yml
 
-CMD java -Djava.security.egd=file:/dev/./urandom -Xms64m -Xmx64m -jar app.jar
+CMD java -Djava.security.egd=file:/dev/./urandom -Xms128m -Xmx128m -jar app.jar
