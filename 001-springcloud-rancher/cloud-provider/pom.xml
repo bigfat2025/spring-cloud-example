@@ -127,7 +127,7 @@
                         <resource>
                             <targetPath>/</targetPath>
                             <directory>${project.build.directory}/classes</directory>
-                            <include>log4j2.xml</include>
+                            <include>application.yml</include>
                         </resource>
                     </resources>
                     <buildArgs>
