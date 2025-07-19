@@ -13,7 +13,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.2.1.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <docker.repo>192.168.10.100:80/bigfat-repo</docker.repo>
+        <docker.repo>192.168.10.100/bigfat-repo</docker.repo>
     </properties>
     <dependencies>
         <dependency>
