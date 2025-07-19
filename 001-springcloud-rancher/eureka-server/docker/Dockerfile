@@ -19,6 +19,6 @@ RUN mkdir -p /app/conf
 EXPOSE 8761
 
 COPY ./$PROJECT_BUILD_NAME.jar /app/app.jar
-COPY ./target/classes/application.yml /app/conf/application.yml
+COPY ./application.yml /app/conf/application.yml
 
 CMD java -Djava.security.egd=file:/dev/./urandom -jar app.jar
