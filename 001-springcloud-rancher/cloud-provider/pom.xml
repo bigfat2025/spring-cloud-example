@@ -41,7 +41,7 @@
         </dependency>
 
         <dependency>
-            <groupId>per.destiny</groupId>
+            <groupId>per.bigfat</groupId>
             <artifactId>cloud-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
